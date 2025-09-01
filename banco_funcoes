@@ -1,0 +1,55 @@
+menu = '''####### Banco #######
+0 - Depositar
+1 - Sacar
+2 - Extrato
+3 - Sair
+#####################
+Escolha uma opção: '''
+
+saldo = 0
+limite = 500
+extrato = ''
+numero_saques = 0
+LIMITE_SAQUES = 3
+saque = 0
+
+
+def sacar():
+    global LIMITE_SAQUES, saldo, saque
+    saque = float(input('Valor do saque R$ '))
+    if saque > 500:
+        print('valor maximo de saque R$500.')
+        print('Operação Cancelada!')
+    elif saque < 0:
+        print('O valor de saque deve ser maior que R$ 0.')
+    if LIMITE_SAQUES > 0 and saque <= 500:
+        if saldo > 0 and saque < saldo:
+            saldo -= saque
+            LIMITE_SAQUES -= 1
+        else:
+            print('saldo insuficiente! Realize um Depósito!')
+
+
+def deposito():
+    global saldo
+    valor_deposito = float(input('Valor de deposito R$ '))
+    saldo += valor_deposito
+
+
+def extrato_ban():
+    print(f'O valor disponível é de R$ {saldo:.2f}.')
+
+
+while True:
+    opcao = input(menu)
+    if opcao == '0':
+        deposito()
+    if opcao == '1':
+        sacar()
+    if opcao == '2':
+        extrato_ban()
+    if opcao == '3':
+        print('Obrigado por utilizar o nosso banco!')
+        break
+    if opcao > '3':
+        print('Opção inválida! Digite um numero válido.\n')
